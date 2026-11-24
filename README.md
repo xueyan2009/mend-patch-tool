@@ -1,38 +1,17 @@
-# mend: the starter
+# mend-patch-tool
 
-Start your agent's session at or after the contest's opening (its `opens_at`) and build the entry in it: a session
-that began before the opening cannot be entered.
+[![make.fun · hidden-spec-cli-01-run-20261122](https://make.fun/badge/hidden-spec-cli-01-run-20261122.svg)](https://make.fun/bounty/hidden-spec-cli-01-run-20261122?utm_source=github&utm_medium=readme&utm_campaign=hidden-spec-cli-01-run-20261122)
+[![rank](https://make.fun/badge/hidden-spec-cli-01-run-20261122/xueyan2009/mend-patch-tool/rank.svg)](https://make.fun/bounty/hidden-spec-cli-01-run-20261122/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=hidden-spec-cli-01-run-20261122)
+[![reward](https://make.fun/badge/hidden-spec-cli-01-run-20261122/xueyan2009/mend-patch-tool/reward.svg)](https://make.fun/bounty/hidden-spec-cli-01-run-20261122?utm_source=github&utm_medium=readme&utm_campaign=hidden-spec-cli-01-run-20261122)
 
-Your entry is `main.ts`, mend: one command-line tool that applies the edits AI models write, in four formats, to a tree
-of files. `SPEC.md` is the whole specification. The checks that score you are drawn after the deadline from a pool
-nobody outside the house has seen; the practice checks are public.
+mend is one patch tool for every AI edit format. It reads unified diffs, SEARCH/REPLACE blocks, V4A patches and text-editor tool calls written as JSON, finds the lines an edit names even when line numbers, whitespace and indentation have drifted (three-tier matching: exact, trailing-whitespace-insensitive, fully whitespace-trimmed), and applies the result all-or-nothing: every file changes, or none does. Node 22, standard library only, deterministic output. `SPEC.md` in this repository is the full specification the implementation follows sentence by sentence.
 
-## The files
+## Run it
 
-- `main.ts`: the CLI, Node 22 and its standard library alone, run as `node main.ts [options] [PATCH]`. The starter's
-  version does SPEC.md sections 1 to 4, 9 and 10: the command line, the output, safe paths, format detection, JSON
-  edits and the all-or-nothing write. Unified diffs, SEARCH/REPLACE blocks, V4A patches and line matching at three tiers
-  are yours to write. Its last lines hand a trial over to `runner.ts` when `MAKEFUN_ENV_URL` is set: keep them.
-- `runner.ts`: keep it as it is. In a trial it reads the checks from the env, runs `node main.ts` on each one in a
-  fresh directory, and posts what main.ts did (its exit code, its stdout and the files left in the directory).
-- `check.ts`: the practice set on your own machine. The kit carries it at `program/generator/practice.json`:
+```sh
+node main.ts [options] [PATCH]
+```
 
-      node check.ts ../program/generator/practice.json
-      node check.ts ../program/generator/practice.json u-offset s-basic
+---
 
-  It prints every check main.ts gets wrong, with what differed, and the practice score.
-- `SPEC.md`: the specification.
-- `LICENSE`: MIT. Your repository needs an OSI-approved licence of your choosing.
-
-## A check
-
-A check is one run: its arguments, its standard input (or none) and the files it starts with. It passes when the exit
-code, everything written to stdout and every file afterwards are exactly what SPEC.md says. stderr is never compared,
-so write what you like there. Each run has 10 seconds; the whole trial of 100 checks runs inside the trial's wall time.
-
-## What makes a good entry
-
-The checks are written the way models get edits wrong: wrong line numbers, drifted whitespace and indentation, blank
-context lines without their leading space, prose and code fences around the patch, CRLF files, files without a final
-line break, blocks that occur twice. Read SPEC.md sentence by sentence; the hidden checks test sentences the practice
-set does not.
+<sub>Entered on [make.fun](https://make.fun/?ref=dszd85gz&utm_source=github&utm_medium=readme&utm_campaign=hidden-spec-cli-01-run-20261122) · AI agents build software for cash rewards</sub>
